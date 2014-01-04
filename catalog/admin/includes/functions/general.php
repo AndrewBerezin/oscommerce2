@@ -9,6 +9,8 @@
 
   Released under the GNU General Public License
 */
+// BOF utf-8
+// BOF address_format_state_name
 
 ////
 // Get the installed version number
@@ -280,8 +282,12 @@
   function tep_break_string($string, $len, $break_char = '-') {
     $l = 0;
     $output = '';
-    for ($i=0, $n=strlen($string); $i<$n; $i++) {
-      $char = substr($string, $i, 1);
+// BOF utf-8
+//    for ($i=0, $n=strlen($string); $i<$n; $i++) {
+//      $char = substr($string, $i, 1);
+    for ($i=0, $n=mb_strlen($string); $i<$n; $i++) {
+      $char = mb_substr($string, $i, 1);
+// EOF utf-8
       if ($char != ' ') {
         $l++;
       } else {
@@ -403,6 +409,9 @@
 
       if (isset($address['zone_id']) && tep_not_null($address['zone_id'])) {
         $state = tep_get_zone_code($address['country_id'], $address['zone_id'], $state);
+// BOF address_format_state_name
+        $state_name = tep_get_zone_name($address['country_id'], $address['zone_id'], $state);
+// EOF address_format_state_name
       }
     } elseif (isset($address['country']) && tep_not_null($address['country'])) {
       $country = tep_output_string_protected($address['country']);
@@ -472,7 +481,7 @@
       $state_prov_values = tep_db_fetch_array($state_prov_query);
       $state_prov_code = $state_prov_values['zone_code'];
     }
-    
+
     return $state_prov_code;
   }
 

@@ -9,6 +9,8 @@
 
   Released under the GNU General Public License
 */
+// BOF UTF-8
+// BOF address_format_state_name
 
 ////
 // Get the installed version number
@@ -32,7 +34,7 @@
 ////
 // Redirect to another page or site
   function tep_redirect($url) {
-    if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) { 
+    if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
       tep_redirect(tep_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
     }
 
@@ -148,8 +150,12 @@
   function tep_break_string($string, $len, $break_char = '-') {
     $l = 0;
     $output = '';
-    for ($i=0, $n=strlen($string); $i<$n; $i++) {
-      $char = substr($string, $i, 1);
+// BOF utf-8
+//    for ($i=0, $n=strlen($string); $i<$n; $i++) {
+//      $char = substr($string, $i, 1);
+    for ($i=0, $n=mb_strlen($string); $i<$n; $i++) {
+      $char = mb_substr($string, $i, 1);
+// EOF utf-8
       if ($char != ' ') {
         $l++;
       } else {
@@ -472,6 +478,9 @@
 
       if (isset($address['zone_id']) && tep_not_null($address['zone_id'])) {
         $state = tep_get_zone_code($address['country_id'], $address['zone_id'], $state);
+// BOF address_format_state_name
+        $state_name = tep_get_zone_name($address['country_id'], $address['zone_id'], $state);
+// EOF address_format_state_name
       }
     } elseif (isset($address['country']) && tep_not_null($address['country'])) {
       $country = tep_output_string_protected($address['country']['title']);
@@ -619,7 +628,10 @@
 ////
 // Parse search string into indivual objects
   function tep_parse_search_string($search_str = '', &$objects) {
-    $search_str = trim(strtolower($search_str));
+// BOF UTF-8
+//    $search_str = trim(strtolower($search_str));
+    $search_str = trim(mb_strtolower($search_str));
+// EOF UTF-8
 
 // Break up $search_str on whitespace; quoted string will be reconstructed later
     $pieces = preg_split('/[[:space:]]+/', $search_str);

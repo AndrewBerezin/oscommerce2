@@ -113,7 +113,10 @@
           if ($next == '') { // get the last insert query
             $next = 'insert';
           }
-          if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) {
+// BOF oscommerce-ru
+//        if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) {
+          if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) || (preg_match('/update/i', $next)) || (preg_match('/set /i', $next)) ) {
+// EOF oscommerce-ru
             $next = '';
             $sql_array[] = substr($restore_query, 0, $i);
             $restore_query = ltrim(substr($restore_query, $i+1));

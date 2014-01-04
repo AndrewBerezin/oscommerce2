@@ -62,6 +62,16 @@
         } else {
           echo '[[1]]';
         }
+// BOF oscommerce-ru
+        $sql_file = $dir_fs_www_root . '/oscommerce-ru.sql';
+        osc_db_install($db['DB_DATABASE'], $sql_file);
+
+        if ($db_error != false) {
+          echo '[[0|' . $db_error . ']]';
+        } else {
+          echo '[[1]]';
+        }
+// EOF oscommerce-ru
 
         exit;
         break;
