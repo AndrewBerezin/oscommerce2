@@ -1,6 +1,6 @@
 <?php
 /*
-  $Id: russian.php,v 1.114 2003/07/09 18:13:39 dgw_ Exp $
+  $Id: russian.php,v 1.114 2003/07/09 18:13:39 AndrewBerezin Exp $
 
   osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
